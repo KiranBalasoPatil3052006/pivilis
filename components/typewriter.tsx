@@ -1,4 +1,0 @@
-"use client";
-import {useEffect,useState} from "react";
-const words=["Social media","Websites","Automation","Marketing"];
-export function TypewriterCaption(){const [phrase,setPhrase]=useState(words[0]);useEffect(()=>{if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;let n=0,c=words[0].length,erase=false;let timer:number;function tick(){const word=words[n];if(!erase&&c<word.length)c++;else if(!erase){erase=true;timer=window.setTimeout(tick,1700);return}else if(c>0)c--;else{erase=false;n=(n+1)%words.length;timer=window.setTimeout(tick,280);return}setPhrase(words[n].slice(0,c));timer=window.setTimeout(tick,erase?65:95)}timer=window.setTimeout(tick,1600);return()=>window.clearTimeout(timer)},[]);return <div className="hero-image-caption" aria-hidden="true"><b>WE HELP WITH</b><span className="typing-text">{phrase}<i className="typing-caret"/></span></div>}
