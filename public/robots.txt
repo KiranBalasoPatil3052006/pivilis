@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /inbox
+Disallow: /api/
+
+Sitemap: https://pivilis.com/sitemap.xml

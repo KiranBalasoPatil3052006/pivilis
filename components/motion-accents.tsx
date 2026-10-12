@@ -1,0 +1,3 @@
+"use client";
+import {useEffect} from "react";
+export function MotionAccents(){useEffect(()=>{const targets=document.querySelectorAll<HTMLElement>(".process-step,.service-feature-art,.detail-image,.directory-image,.directory-feature-head");if(!("IntersectionObserver" in window)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){targets.forEach(el=>el.classList.add("is-visible"));return}const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){entry.target.classList.add("is-visible");observer.unobserve(entry.target)}}},{threshold:.2});targets.forEach(el=>observer.observe(el));return()=>observer.disconnect()},[]);return null}

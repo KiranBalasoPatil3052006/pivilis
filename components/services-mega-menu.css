@@ -1,0 +1,441 @@
+/* ==========================================================================
+   PIVILIS DESKTOP SERVICES MEGA-MENU DRAWER
+   ========================================================================== */
+
+/* Only active on desktop (min-width: 1024px) */
+@media (max-width: 1023px) {
+  .pivilis-mega-drawer-wrapper {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pivilis-mega-drawer-wrapper {
+    position: absolute;
+    top: 66px;
+    left: 20px;
+    right: 20px;
+    width: calc(100% - 40px);
+    max-width: 1280px;
+    margin-inline: auto;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px) scale(0.995);
+    transition:
+      opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 240ms;
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+
+  /* Invisible hover bridge connecting navbar bottom edge to drawer top */
+  .pivilis-mega-drawer-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -16px;
+    left: 0;
+    right: 0;
+    height: 16px;
+    background: transparent;
+    pointer-events: auto;
+  }
+
+  .pivilis-mega-drawer-wrapper.is-open {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    transition:
+      opacity 340ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 340ms;
+  }
+
+  /* Main Drawer Shell */
+  .pivilis-mega-drawer {
+    width: 100%;
+    border-radius: 18px;
+    box-sizing: border-box;
+    display: flex;
+    overflow: hidden;
+    transition:
+      background-color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* --------------------------------------------------------------------------
+     THEME STATES
+     -------------------------------------------------------------------------- */
+  /* Light Theme */
+  .pivilis-mega-drawer-wrapper[data-theme="light"] .pivilis-mega-drawer {
+    background-color: rgba(248, 246, 240, 0.98);
+    border: 1px solid rgba(23, 25, 23, 0.08);
+    color: #171917;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.07);
+  }
+
+  /* Dark Theme */
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .pivilis-mega-drawer {
+    background-color: rgba(23, 25, 23, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #F4F0E8;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.28);
+  }
+
+  /* --------------------------------------------------------------------------
+     LEFT COLUMN (35%)
+     -------------------------------------------------------------------------- */
+  .mega-left-col {
+    width: 35%;
+    flex: 0 0 35%;
+    padding: 24px 18px 24px 22px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(23, 25, 23, 0.08);
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-left-col {
+    border-right-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Left Header: "— SERVICES" */
+  .mega-left-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding-left: 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #F4513A;
+  }
+
+  .mega-left-header-dash {
+    display: inline-block;
+    width: 14px;
+    height: 1.5px;
+    background-color: #F4513A;
+    border-radius: 1px;
+  }
+
+  /* 7 Services Vertical List */
+  .mega-services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mega-service-item {
+    position: relative;
+    width: 100%;
+    min-height: 52px;
+    padding: 10px 14px 10px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+    transition:
+      background-color 200ms ease,
+      color 200ms ease,
+      transform 200ms ease;
+  }
+
+  .mega-service-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .mega-service-num {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(23, 25, 23, 0.45);
+    transition: color 200ms ease;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-service-num {
+    color: rgba(244, 240, 232, 0.45);
+  }
+
+  .mega-service-title {
+    font-size: 1.02rem;
+    font-weight: 520;
+    letter-spacing: -0.01em;
+    transition: color 200ms ease, transform 200ms ease;
+  }
+
+  .mega-service-arrow {
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 200ms ease, transform 200ms ease, color 200ms ease;
+    color: #F4513A;
+    flex-shrink: 0;
+  }
+
+  /* Active & Hovered Service Item */
+  .mega-service-item.is-active,
+  .mega-service-item:hover {
+    background-color: rgba(244, 81, 58, 0.08);
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-service-item.is-active,
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-service-item:hover {
+    background-color: rgba(244, 81, 58, 0.14);
+  }
+
+  .mega-service-item.is-active .mega-service-num,
+  .mega-service-item:hover .mega-service-num {
+    color: #F4513A;
+  }
+
+  .mega-service-item.is-active .mega-service-title,
+  .mega-service-item:hover .mega-service-title {
+    color: #F4513A;
+    transform: translateX(2px);
+  }
+
+  .mega-service-item.is-active .mega-service-arrow,
+  .mega-service-item:hover .mega-service-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Far-left vertical coral line on active item */
+  .mega-service-item.is-active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    background-color: #F4513A;
+    border-radius: 2px;
+  }
+
+  /* --------------------------------------------------------------------------
+     RIGHT CONTENT AREA (65%)
+     -------------------------------------------------------------------------- */
+  .mega-right-area {
+    width: 65%;
+    flex: 0 0 65%;
+    padding: 28px 34px 26px 34px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Active Service Header */
+  .mega-right-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .mega-right-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 580px;
+  }
+
+  .mega-active-title-stack {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .mega-active-number {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(23, 25, 23, 0.40);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-active-number {
+    color: rgba(244, 240, 232, 0.40);
+  }
+
+  .mega-active-title {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 550;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+
+  .mega-active-desc {
+    margin: 4px 0 0 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: rgba(23, 25, 23, 0.65);
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-active-desc {
+    color: rgba(244, 240, 232, 0.65);
+  }
+
+  /* Top-Right "EXPLORE OUR CAPABILITIES" Label */
+  .mega-explore-caps-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(23, 25, 23, 0.42);
+    white-space: nowrap;
+    padding-top: 6px;
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-explore-caps-label {
+    color: rgba(244, 240, 232, 0.42);
+  }
+
+  /* Divider under header */
+  .mega-header-divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(23, 25, 23, 0.08);
+    margin: 18px 0 16px 0;
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-header-divider {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Subservice Grid (2 or 3 balanced columns) */
+  .mega-subservices-container {
+    flex: 1 1 auto;
+    margin-bottom: 20px;
+    /* Quick crossfade when switching active service */
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .mega-subservices-container.is-transitioning {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  .mega-subservices-grid {
+    display: grid;
+    gap: 0 32px;
+  }
+
+  .mega-subservices-grid.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mega-subservices-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .mega-subservice-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Subservice Row */
+  .mega-subservice-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8.5px 0;
+    border-bottom: 1px solid rgba(23, 25, 23, 0.07);
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.91rem;
+    font-weight: 480;
+    line-height: 1.35;
+    transition: color 200ms ease;
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-subservice-row {
+    border-bottom-color: rgba(255, 255, 255, 0.07);
+  }
+
+  .mega-subservice-name {
+    transition: transform 200ms ease, color 200ms ease;
+  }
+
+  .mega-subservice-arrow {
+    color: #F4513A;
+    opacity: 0.5;
+    transform: translateX(0);
+    transition: opacity 200ms ease, transform 200ms ease;
+    flex-shrink: 0;
+  }
+
+  .mega-subservice-row:hover {
+    color: #F4513A;
+  }
+
+  .mega-subservice-row:hover .mega-subservice-name {
+    transform: translateX(2px);
+  }
+
+  .mega-subservice-row:hover .mega-subservice-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  /* Bottom Active Service CTA */
+  .mega-bottom-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 13px 18px;
+    box-sizing: border-box;
+    border-radius: 9px;
+    background-color: rgba(244, 81, 58, 0.07);
+    color: #F4513A;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 580;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-bottom-cta {
+    background-color: rgba(244, 81, 58, 0.12);
+  }
+
+  .mega-bottom-cta:hover {
+    background-color: rgba(244, 81, 58, 0.13);
+  }
+
+  .pivilis-mega-drawer-wrapper[data-theme="dark"] .mega-bottom-cta:hover {
+    background-color: rgba(244, 81, 58, 0.18);
+  }
+
+  .mega-bottom-cta-arrow {
+    transition: transform 200ms ease;
+  }
+
+  .mega-bottom-cta:hover .mega-bottom-cta-arrow {
+    transform: translateX(4px);
+  }
+}

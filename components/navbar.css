@@ -1,0 +1,957 @@
+/* ==========================================================================
+   PIVILIS FLOATING RESPONSIVE SECTION-AWARE NAVBAR
+   ========================================================================== */
+
+/* Outer fixed container across top of viewport */
+.site-header.pivilis-nav-container {
+  position: fixed !important;
+  top: 14px !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 20px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  z-index: 999 !important;
+  background: transparent !important;
+  border: none !important;
+  pointer-events: none !important;
+  transition: transform 300ms ease;
+}
+
+/* Floating Centered Pill Navbar */
+.pivilis-navbar {
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 1000 !important;
+  width: 100% !important;
+  max-width: 1280px !important;
+  min-height: 56px !important;
+  height: 56px !important;
+  padding: 8px 22px !important;
+  box-sizing: border-box !important;
+  border-radius: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+  
+  /* Section-Aware Transition: 400ms duration, smooth cubic bezier */
+  transition:
+    background-color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    backdrop-filter 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. LIGHT NAVBAR STATE (Default & Light Sections)
+   -------------------------------------------------------------------------- */
+.pivilis-nav-container[data-theme="light"] .pivilis-navbar {
+  background-color: rgba(248, 246, 240, 0.90);
+  border: 1px solid rgba(23, 25, 23, 0.08);
+  color: #171917;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.04);
+}
+
+.pivilis-nav-container[data-theme="light"][data-scrolled="true"] .pivilis-navbar {
+  background-color: rgba(248, 246, 240, 0.96);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.07);
+}
+
+/* --------------------------------------------------------------------------
+   3. DARK NAVBAR STATE (Dark Sections)
+   -------------------------------------------------------------------------- */
+.pivilis-nav-container[data-theme="dark"] .pivilis-navbar {
+  background-color: rgba(23, 25, 23, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #F4F0E8;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.pivilis-nav-container[data-theme="dark"][data-scrolled="true"] .pivilis-navbar {
+  background-color: rgba(23, 25, 23, 0.96);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+}
+
+/* --------------------------------------------------------------------------
+   7. BRAND LOGO (Smooth Crossfade without Inversion)
+   -------------------------------------------------------------------------- */
+.nav-brand-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  line-height: 0;
+  transition: transform 220ms ease;
+}
+
+.nav-brand-wrap:hover {
+  transform: translateY(-1px);
+}
+
+.brand-logo-container {
+  position: relative;
+  width: 135px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo-img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 135px;
+  height: auto;
+  max-height: 38px;
+  object-fit: contain;
+  transition: opacity 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+/* Light state: dark lettering logo visible, light lettering hidden */
+.pivilis-nav-container[data-theme="light"] .logo-light-state {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.pivilis-nav-container[data-theme="light"] .logo-dark-state {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Dark state: light lettering logo visible, dark lettering hidden */
+.pivilis-nav-container[data-theme="dark"] .logo-light-state {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pivilis-nav-container[data-theme="dark"] .logo-dark-state {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* --------------------------------------------------------------------------
+   8 & 9 & 10. CENTER NAVIGATION LINKS (Desktop)
+   -------------------------------------------------------------------------- */
+.nav-center-desktop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-links-row {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 38px; /* Desktop gap: 34px–42px */
+}
+
+.nav-link-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  font-size: 15.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: inherit;
+  text-decoration: none;
+  padding: 6px 0;
+  transition: color 240ms ease;
+  white-space: nowrap;
+}
+
+/* Subtle Underline: 1px coral line growing left-to-right */
+.nav-link-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #F4513A;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 250ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.nav-link-item:hover::after,
+.nav-link-item:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav-link-item:focus-visible {
+  outline: none;
+}
+
+/* Active Page State: coral text + underline */
+.nav-link-item.is-active,
+.nav-link-item[aria-current="page"] {
+  color: #F4513A !important;
+}
+
+.nav-link-item.is-active::after,
+.nav-link-item[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   11. CTA BUTTON (Start a project ↗)
+   -------------------------------------------------------------------------- */
+.nav-right-desktop {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pivilis-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background-color: #F4513A;
+  color: #ffffff !important;
+  font-size: 14.5px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  cursor: pointer;
+  line-height: 1;
+  transition:
+    background-color 220ms ease,
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.pivilis-cta-button .cta-arrow-icon {
+  width: 15px;
+  height: 15px;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pivilis-cta-button:hover {
+  background-color: #d94125;
+}
+
+.pivilis-cta-button:hover .cta-arrow-icon {
+  transform: translate(3px, -3px);
+}
+
+.pivilis-cta-button:active {
+  transform: scale(0.98);
+}
+
+/* --------------------------------------------------------------------------
+   14 & 17. MOBILE TRIGGER BUTTON
+   -------------------------------------------------------------------------- */
+.pivilis-mobile-toggle {
+  display: none; /* Desktop hidden */
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 12px;
+  transition: background-color 200ms ease, color 200ms ease;
+  flex-shrink: 0;
+}
+
+.pivilis-mobile-toggle:hover {
+  background-color: rgba(125, 125, 125, 0.12);
+}
+
+.pivilis-mobile-toggle:focus-visible {
+  outline: 2px solid #F4513A;
+  outline-offset: 2px;
+}
+
+.toggle-icon-box {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+}
+
+/* --------------------------------------------------------------------------
+   15 & 16. MOBILE MENU DROPDOWN & FREEZE BEHAVIOR
+   -------------------------------------------------------------------------- */
+.pivilis-mobile-dropdown {
+  pointer-events: auto;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 20px;
+  right: 20px;
+  margin-inline: auto;
+  max-width: 1280px;
+  max-height: calc(100dvh - 84px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 18px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.99);
+  transition:
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 320ms,
+    background-color 400ms ease,
+    border-color 400ms ease,
+    color 400ms ease;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  scrollbar-width: thin;
+}
+
+.pivilis-mobile-dropdown::-webkit-scrollbar {
+  width: 5px;
+}
+
+.pivilis-mobile-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pivilis-mobile-dropdown::-webkit-scrollbar-thumb {
+  background: rgba(125, 125, 125, 0.3);
+  border-radius: 999px;
+}
+
+.pivilis-mobile-dropdown.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Light Mobile Dropdown */
+.pivilis-nav-container[data-theme="light"] .pivilis-mobile-dropdown {
+  background-color: rgba(248, 246, 240, 0.98);
+  border: 1px solid rgba(23, 25, 23, 0.08);
+  color: #171917;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark Mobile Dropdown */
+.pivilis-nav-container[data-theme="dark"] .pivilis-mobile-dropdown {
+  background-color: rgba(23, 25, 23, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #F4F0E8;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.mobile-dropdown-inner {
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: inherit;
+  font-size: 1.05rem;
+  font-weight: 550;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.mobile-nav-link-item:hover,
+.mobile-nav-link-item:focus-visible {
+  background-color: rgba(125, 125, 125, 0.08);
+}
+
+.mobile-nav-link-item.is-active,
+.mobile-nav-link-item[aria-current="page"] {
+  color: #F4513A !important;
+}
+
+.mobile-nav-arrow {
+  opacity: 0.45;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.mobile-nav-link-item:hover .mobile-nav-arrow,
+.mobile-nav-link-item.is-active .mobile-nav-arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+  color: #F4513A;
+}
+
+/* Services expandable accordion & options on mobile */
+.mobile-nav-item-services {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-services-row-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  border-radius: 10px;
+  color: inherit;
+  transition: background-color 180ms ease, color 180ms ease;
+  width: 100%;
+}
+
+.mobile-services-row-wrap:hover {
+  background-color: rgba(125, 125, 125, 0.08);
+}
+
+.mobile-services-row-wrap.is-active {
+  color: #F4513A !important;
+}
+
+.mobile-services-direct-link {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  min-height: 46px;
+  padding: 10px 14px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 550;
+  border-radius: 10px 0 0 10px;
+  transition: color 180ms ease;
+}
+
+.mobile-services-direct-link:hover,
+.mobile-services-direct-link:focus-visible {
+  color: #F4513A;
+}
+
+.mobile-services-chevron-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0;
+  margin-right: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  border-radius: 8px;
+  transition: background-color 180ms ease, color 180ms ease;
+  flex-shrink: 0;
+}
+
+.mobile-services-chevron-btn:hover {
+  background-color: rgba(125, 125, 125, 0.12);
+  color: #F4513A;
+}
+
+.mobile-services-toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-services-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background-color: rgba(244, 81, 58, 0.12);
+  color: #F4513A;
+  border: 1px solid rgba(244, 81, 58, 0.25);
+  line-height: 1;
+}
+
+.mobile-services-chevron {
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1), color 200ms ease;
+  opacity: 0.75;
+}
+
+.mobile-services-chevron.is-open {
+  transform: rotate(180deg);
+  color: #F4513A;
+  opacity: 1;
+}
+
+.mobile-subservices-drawer {
+  overflow: hidden;
+  margin: 0;
+  transition: opacity 240ms ease;
+}
+
+.mobile-subservices-drawer:not(.is-open) {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  opacity: 0 !important;
+}
+
+.mobile-subservices-drawer.is-open {
+  display: block !important;
+  opacity: 1;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.mobile-subservices-inner {
+  overflow: hidden;
+  border-radius: 14px;
+  padding: 12px 10px 14px 12px;
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+/* Light theme for inner drawer */
+.pivilis-nav-container[data-theme="light"] .mobile-subservices-inner {
+  background-color: rgba(23, 25, 23, 0.035);
+  border: 1px solid rgba(23, 25, 23, 0.07);
+}
+
+/* Dark theme for inner drawer */
+.pivilis-nav-container[data-theme="dark"] .mobile-subservices-inner {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.mobile-subservices-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 6px 10px 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #F4513A;
+  text-transform: uppercase;
+}
+
+.eyebrow-dash {
+  display: inline-block;
+  width: 12px;
+  height: 1.5px;
+  background-color: #F4513A;
+  border-radius: 1px;
+}
+
+.mobile-subservices-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mobile-subservice-row {
+  border-radius: 9px;
+  transition: background-color 180ms ease;
+}
+
+.mobile-subservice-row:hover {
+  background-color: rgba(125, 125, 125, 0.07);
+}
+
+.mobile-subservice-row.is-active {
+  background-color: rgba(244, 81, 58, 0.08);
+}
+
+.mobile-subservice-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 6px 8px;
+  gap: 10px;
+}
+
+.mobile-subservice-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-subservice-num {
+  font-size: 0.78rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.45;
+  transition: opacity 180ms ease, color 180ms ease;
+  flex-shrink: 0;
+}
+
+.mobile-subservice-title {
+  font-size: 0.94rem;
+  font-weight: 550;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}
+
+.mobile-subservice-row.is-active .mobile-subservice-title,
+.mobile-subservice-row.is-active .mobile-subservice-num {
+  color: #F4513A !important;
+  opacity: 1;
+}
+
+.mobile-subservice-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.mobile-subservice-expand-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  padding: 6px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  opacity: 0.55;
+  transition: opacity 180ms ease, background-color 180ms ease, transform 200ms ease;
+}
+
+.mobile-subservice-expand-btn:hover {
+  opacity: 1;
+  background-color: rgba(125, 125, 125, 0.12);
+}
+
+.mobile-subservice-expand-btn.is-expanded {
+  opacity: 1;
+  color: #F4513A;
+  transform: rotate(45deg);
+}
+
+.mobile-subservice-arrow-btn {
+  color: inherit;
+  opacity: 0.4;
+  padding: 6px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  transition: opacity 180ms ease, transform 180ms ease, color 180ms ease;
+}
+
+.mobile-subservice-row:hover .mobile-subservice-arrow-btn,
+.mobile-subservice-row.is-active .mobile-subservice-arrow-btn {
+  opacity: 1;
+  color: #F4513A;
+  transform: translate(1px, -1px);
+}
+
+/* Nested Capabilities List */
+.mobile-nested-options-list {
+  list-style: none;
+  margin: 2px 0 6px 24px;
+  padding: 4px 0 6px 12px;
+  border-left: 1.5px solid rgba(244, 81, 58, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  animation: nestedFadeIn 220ms ease forwards;
+}
+
+@keyframes nestedFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-nested-option-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: background-color 150ms ease, opacity 150ms ease, color 150ms ease;
+}
+
+.mobile-nested-option-item:hover {
+  opacity: 1;
+  background-color: rgba(125, 125, 125, 0.08);
+  color: #F4513A;
+}
+
+.mobile-nested-option-item.is-active {
+  color: #F4513A;
+  font-weight: 600;
+  opacity: 1;
+}
+
+.nested-bullet {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #F4513A;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.nested-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nested-arrow {
+  opacity: 0.4;
+  margin-left: 6px;
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.mobile-nested-option-item:hover .nested-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+.mobile-nested-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #F4513A;
+  text-decoration: none;
+  padding: 6px 8px;
+  margin-top: 2px;
+}
+
+.mobile-nested-all-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer link in subservices drawer */
+.mobile-subservices-footer {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(125, 125, 125, 0.16);
+}
+
+.mobile-all-services-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #F4513A;
+  text-decoration: none;
+  border-radius: 7px;
+  transition: background-color 180ms ease;
+}
+
+.mobile-all-services-link:hover {
+  background-color: rgba(244, 81, 58, 0.08);
+}
+
+.mobile-cta-container {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(125, 125, 125, 0.14);
+}
+
+.pivilis-mobile-cta {
+  width: 100%;
+  min-height: 48px;
+  font-size: 1rem;
+}
+
+.pivilis-mobile-backdrop {
+  pointer-events: auto;
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background-color: rgba(10, 11, 10, 0.35);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: pivilisFadeIn 250ms ease forwards;
+}
+
+@keyframes pivilisFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   18. RESPONSIVE MEDIA QUERIES
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .site-header.pivilis-nav-container {
+    top: 10px !important;
+    padding: 0 16px !important;
+  }
+
+  .pivilis-navbar {
+    height: 52px !important;
+    min-height: 52px !important;
+    padding: 8px 16px !important;
+    border-radius: 16px !important;
+  }
+
+  .nav-center-desktop,
+  .nav-right-desktop {
+    display: none !important;
+  }
+
+  .pivilis-mobile-toggle {
+    display: grid !important;
+  }
+
+  .pivilis-mobile-dropdown {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    border-radius: 16px !important;
+  }
+
+  .brand-logo-container {
+    width: 120px;
+    height: 34px;
+  }
+
+  .brand-logo-img {
+    width: 120px;
+    max-height: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header.pivilis-nav-container {
+    top: 8px !important;
+    padding: 0 12px !important;
+  }
+
+  .pivilis-navbar {
+    height: 50px !important;
+    min-height: 50px !important;
+    padding: 6px 14px !important;
+    border-radius: 15px !important;
+  }
+
+  .pivilis-mobile-dropdown {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    border-radius: 15px !important;
+  }
+
+  .brand-logo-container {
+    width: 110px;
+    height: 32px;
+  }
+
+  .brand-logo-img {
+    width: 110px;
+    max-height: 32px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PAGE TOP CLEARANCE FOR FLOATING NAVBAR
+   -------------------------------------------------------------------------- */
+.hero-inner,
+.about-hero-inner,
+.directory-hero-inner {
+  padding-top: max(100px, 9vh) !important;
+}
+
+.page-intro {
+  padding-top: max(96px, 8vh) !important;
+}
+
+.detail-hero,
+.capability-hero {
+  padding-top: clamp(118px, 12vh, 134px) !important;
+}
+
+@media (max-width: 900px) {
+  .hero-inner,
+  .about-hero,
+  .about-hero-inner,
+  .directory-hero,
+  .directory-hero-inner,
+  .page-intro {
+    padding-top: 88px !important;
+  }
+  .detail-hero,
+  .capability-hero {
+    padding-top: 104px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-inner,
+  .about-hero,
+  .about-hero-inner,
+  .directory-hero,
+  .directory-hero-inner,
+  .page-intro {
+    padding-top: 84px !important;
+  }
+  .detail-hero,
+  .capability-hero {
+    padding-top: 98px !important;
+  }
+}
+
