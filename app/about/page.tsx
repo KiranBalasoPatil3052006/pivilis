@@ -114,8 +114,8 @@ export default function About() {
       </section>
 
       <section className="section about-origin-section" data-nav-theme="light">
-        <div className="container about-story">
-          <div>
+        <div className="container about-story about-section-grid">
+          <div className="about-section-heading">
             <span className="eyebrow">02 — Why we started</span>
             <BlurText
               text="Digital work should be easier to manage."
@@ -128,7 +128,7 @@ export default function About() {
               className="heading about-section-title about-animated-title"
             />
           </div>
-          <div>
+          <div className="about-section-copy">
             <p>
               Many business owners have good products, services and ideas, but
               handling content, ads, websites, software, design and automation
@@ -144,8 +144,8 @@ export default function About() {
 
       <section className="skewed-carousel-section" data-nav-theme="light" aria-label="Our services and capabilities">
         <div className="container">
-          <div className="skewed-carousel-head">
-            <div>
+          <div className="skewed-carousel-head about-section-grid">
+            <div className="about-section-heading">
               <span className="eyebrow">03 — What we do</span>
               <BlurText
                 text="We help businesses move forward."
@@ -158,7 +158,7 @@ export default function About() {
                 className="heading about-section-title about-animated-title"
               />
             </div>
-            <p className="lead" style={{ margin: 0, maxWidth: 460 }}>
+            <p className="lead about-section-copy about-services-copy">
               From content and ads to websites, software, design and automation —
               we handle the work together.
             </p>
