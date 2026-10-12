@@ -252,7 +252,7 @@ export function Navbar() {
           <div className="brand-logo-container">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/pivilis-wordmark-transparent.png"
+              src="/images/pivilis-wordmark-transparent.webp"
               alt="Pivilis"
               className="brand-logo-img logo-light-state"
               width={135}
@@ -260,7 +260,7 @@ export function Navbar() {
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/pivilis-wordmark-light.png"
+              src="/images/pivilis-wordmark-light.webp"
               alt="Pivilis"
               className="brand-logo-img logo-dark-state"
               width={135}

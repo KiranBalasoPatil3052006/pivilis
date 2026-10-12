@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: "Pivilis",
     images: [
       {
-        url: "/images/hero-about.png",
+        url: "/images/hero-about.webp",
         width: 1200,
         height: 630,
         alt: "Contact Pivilis",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "Contact — Start a Project or Conversation",
     description:
       "Tell us about your business and goals. We help you plan the right digital solutions across marketing, automation, websites, and software.",
-    images: ["/images/hero-about.png"],
+    images: ["/images/hero-about.webp"],
   },
 };
 

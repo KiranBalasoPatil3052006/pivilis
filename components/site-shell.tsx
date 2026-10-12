@@ -20,7 +20,7 @@ export function Footer() {
       {/* Background Watermark Logo with light glow */}
       <div className="footer-watermark-wrapper" aria-hidden="true">
         <Image
-          src="/images/pivilis-icon.png"
+          src="/images/pivilis-icon.webp"
           alt=""
           className="footer-watermark-icon"
           width={1304}
@@ -179,7 +179,7 @@ export function Footer() {
         {/* Big Stylized Wordmark Backdrop Graphic */}
         <div className="footer-massive-brand" aria-hidden="true">
           <Image
-            src="/images/pivilis-wordmark-light.png"
+            src="/images/pivilis-wordmark-light.webp"
             alt=""
             className="footer-massive-logo"
             width={511}

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Pivilis",
     images: [
       {
-        url: "/images/about-hero.png",
+        url: "/images/about-hero.webp",
         width: 1200,
         height: 630,
         alt: "About Pivilis — Practical Digital Support",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "About Pivilis — Clear Digital Support for Businesses",
     description:
       "Learn why Pivilis started and how one team helps growing businesses with clear, connected digital services.",
-    images: ["/images/about-hero.png"],
+    images: ["/images/about-hero.webp"],
   },
 };
 
@@ -97,7 +97,7 @@ export default function About() {
                 <span className="about-brand-rule about-brand-rule-left" aria-hidden="true" />
                 <span className="about-brand-mark">
                   <Image
-                    src="/images/pivilis-icon.png"
+                    src="/images/pivilis-icon.webp"
                     alt=""
                     width={112}
                     height={112}

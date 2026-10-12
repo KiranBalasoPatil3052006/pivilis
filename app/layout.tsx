@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       "Practical support for content, marketing, automation, websites, software and design. One partner for the digital side of your business.",
     images: [
       {
-        url: "/images/hero-about.png",
+        url: "/images/hero-about.webp",
         width: 1200,
         height: 630,
         alt: "Pivilis — Digital services for growing businesses",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Pivilis — Digital Services for Growing Businesses",
     description:
       "Practical support for content, marketing, automation, websites, software and design.",
-    images: ["/images/hero-about.png"],
+    images: ["/images/hero-about.webp"],
   },
   robots: {
     index: true,
@@ -53,8 +53,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/images/pivilis-icon.png",
-    apple: "/images/pivilis-icon.png",
+    icon: "/images/pivilis-icon.webp",
+    apple: "/images/pivilis-icon.webp",
   },
 };
 
@@ -69,7 +69,7 @@ const orgWebsiteSchema = {
       logo: {
         "@type": "ImageObject",
         "@id": `${siteUrl}/#logo`,
-        url: `${siteUrl}/images/pivilis-icon.png`,
+        url: `${siteUrl}/images/pivilis-icon.webp`,
         caption: "Pivilis",
       },
       email: "Pivilisofficial@gmail.com",
@@ -100,7 +100,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/images/preloader/logo.png"
+          href="/images/preloader/logo.webp"
           fetchPriority="high"
         />
         <script

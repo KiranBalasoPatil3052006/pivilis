@@ -1,11 +1,11 @@
 export const serviceImages: Record<string, string> = {
-  "ai-automation": "/images/service-details/ai-automation-removebg-preview.png",
-  "social-media-content": "/images/service-details/social-media-content-removebg-preview.png",
-  "video-editing-production": "/images/service-details/video-editing-production-removebg-preview.png",
-  "marketing-advertising": "/images/service-details/marketing-advertising-removebg-preview.png",
-  "website-development": "/images/service-details/website-development-removebg-preview.png",
-  "custom-software-development": "/images/service-details/custom-software-development-removebg-preview.png",
-  "ui-ux-product-design": "/images/service-details/ui-ux-product-design-removebg-preview.png"
+  "ai-automation": "/images/service-details/ai-automation-removebg-preview.webp",
+  "social-media-content": "/images/service-details/social-media-content-removebg-preview.webp",
+  "video-editing-production": "/images/service-details/video-editing-production-removebg-preview.webp",
+  "marketing-advertising": "/images/service-details/marketing-advertising-removebg-preview.webp",
+  "website-development": "/images/service-details/website-development-removebg-preview.webp",
+  "custom-software-development": "/images/service-details/custom-software-development-removebg-preview.webp",
+  "ui-ux-product-design": "/images/service-details/ui-ux-product-design-removebg-preview.webp"
 };
 
 export const serviceVisualAlts: Record<string, string> = {

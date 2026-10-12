@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Pivilis",
     images: [
       {
-        url: "/images/hero-about.png",
+        url: "/images/hero-about.webp",
         width: 1200,
         height: 630,
         alt: "Pivilis Services Directory",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "Services Directory — Seven Digital Disciplines",
     description:
       "Explore all seven Pivilis service areas: AI & automation, social media, video editing, marketing & ads, websites, custom software, and product design.",
-    images: ["/images/hero-about.png"],
+    images: ["/images/hero-about.webp"],
   },
 };
 

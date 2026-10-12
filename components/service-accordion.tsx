@@ -7,13 +7,13 @@ import {services} from "@/lib/services";
 import {toItemSlug} from "@/lib/capabilities";
 
 const homeServiceIcons: Record<string, string> = {
-  "ai-automation": "/images/home-icon/icon-ai.png",
-  "social-media-content": "/images/home-icon/icon-social.png",
-  "video-editing-production": "/images/home-icon/icon-video.png",
-  "marketing-advertising": "/images/home-icon/icon-marketing.png",
-  "website-development": "/images/home-icon/icon-website.png",
-  "custom-software-development": "/images/home-icon/icon-software.png",
-  "ui-ux-product-design": "/images/home-icon/icon-design.png",
+  "ai-automation": "/images/home-icon/icon-ai.webp",
+  "social-media-content": "/images/home-icon/icon-social.webp",
+  "video-editing-production": "/images/home-icon/icon-video.webp",
+  "marketing-advertising": "/images/home-icon/icon-marketing.webp",
+  "website-development": "/images/home-icon/icon-website.webp",
+  "custom-software-development": "/images/home-icon/icon-software.webp",
+  "ui-ux-product-design": "/images/home-icon/icon-design.webp",
 };
 
 export function ServiceAccordion() {

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Pivilis",
     images: [
       {
-        url: "/images/hero-about.png",
+        url: "/images/hero-about.webp",
         width: 1200,
         height: 630,
         alt: "Pivilis — Digital services for growing businesses",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "Pivilis — Digital Services for Growing Businesses",
     description:
       "Practical digital support for growing businesses. We design, build, and manage content, advertising, automation, websites, and custom software.",
-    images: ["/images/hero-about.png"],
+    images: ["/images/hero-about.webp"],
   },
 };
 
@@ -82,7 +82,7 @@ export default function Home() {
       <section className="hero" data-nav-theme="light">
         <Image
           className="hero-background"
-          src="/images/hero-about.png"
+          src="/images/hero-about.webp"
           alt="Pivilis fluid warm curves visual"
           width={1916}
           height={821}

@@ -35,7 +35,7 @@ export async function generateMetadata({
   const subserviceCard = getSubserviceCard(detail.serviceSlug, detail.slug);
   const subserviceImage =
     subserviceCard?.image ||
-    `/images/service-details/${detail.serviceSlug}-removebg-preview.png`;
+    `/images/service-details/${detail.serviceSlug}-removebg-preview.webp`;
 
   const pageUrl = `/services/${slug}/${item}`;
   const pageTitle = `${detail.name} — ${detail.serviceTitle}`;
@@ -87,7 +87,7 @@ export default async function CapabilityPage({
   const subserviceCard = getSubserviceCard(detail.serviceSlug, detail.slug);
   const subserviceImage =
     subserviceCard?.image ||
-    `/images/service-details/${detail.serviceSlug}-removebg-preview.png`;
+    `/images/service-details/${detail.serviceSlug}-removebg-preview.webp`;
   const subserviceAlt =
     subserviceCard?.alt || `${detail.name} — ${detail.serviceTitle}`;
 

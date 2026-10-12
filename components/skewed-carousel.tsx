@@ -19,7 +19,7 @@ export const defaultServiceCards: CarouselCardItem[] = [
     number: "01",
     title: "AI & Automation",
     slug: "ai-automation",
-    image: "/images/cardmoving/ai.png",
+    image: "/images/cardmoving/ai.webp",
     alt: "01 — AI & Automation service"
   },
   {
@@ -27,7 +27,7 @@ export const defaultServiceCards: CarouselCardItem[] = [
     number: "02",
     title: "Social Media & Content",
     slug: "social-media-content",
-    image: "/images/cardmoving/social.png",
+    image: "/images/cardmoving/social.webp",
     alt: "02 — Social Media & Content service"
   },
   {
@@ -35,7 +35,7 @@ export const defaultServiceCards: CarouselCardItem[] = [
     number: "03",
     title: "Video Editing & Production",
     slug: "video-editing-production",
-    image: "/images/cardmoving/video.png",
+    image: "/images/cardmoving/video.webp",
     alt: "03 — Video Editing & Production service"
   },
   {
@@ -43,7 +43,7 @@ export const defaultServiceCards: CarouselCardItem[] = [
     number: "04",
     title: "Marketing & Advertising",
     slug: "marketing-advertising",
-    image: "/images/cardmoving/marketing.png",
+    image: "/images/cardmoving/marketing.webp",
     alt: "04 — Marketing & Advertising service"
   },
   {
@@ -51,7 +51,7 @@ export const defaultServiceCards: CarouselCardItem[] = [
     number: "05",
     title: "Website Development",
     slug: "website-development",
-    image: "/images/cardmoving/webdev.png",
+    image: "/images/cardmoving/webdev.webp",
     alt: "05 — Website Development service"
   },
   {
@@ -59,7 +59,7 @@ export const defaultServiceCards: CarouselCardItem[] = [
     number: "06",
     title: "Custom Software Development",
     slug: "custom-software-development",
-    image: "/images/cardmoving/software.png",
+    image: "/images/cardmoving/software.webp",
     alt: "06 — Custom Software Development service"
   },
   {
@@ -67,7 +67,7 @@ export const defaultServiceCards: CarouselCardItem[] = [
     number: "07",
     title: "UI/UX & Product Design",
     slug: "ui-ux-product-design",
-    image: "/images/cardmoving/design.png",
+    image: "/images/cardmoving/design.webp",
     alt: "07 — UI/UX & Product Design service"
   }
 ];

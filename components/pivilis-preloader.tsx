@@ -240,7 +240,7 @@ export function PivilisPreloader() {
         <div className="pv-logo" ref={logoRef}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/preloader/logo.png"
+            src="/images/preloader/logo.webp"
             alt="Pivilis"
             width={1498}
             height={444}
