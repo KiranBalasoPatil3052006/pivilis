@@ -1,11 +1,54 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {ArrowUpRight, ArrowRight, ArrowUp, Mail} from "lucide-react";
-import Orb from "./Orb";
-import Aurora from "./Aurora";
+
+const Orb = dynamic(() => import("./Orb"), { ssr: false });
+const Aurora = dynamic(() => import("./Aurora"), { ssr: false });
 
 export { Navbar as Header } from "./navbar";
+
+function DeferredVisual({
+  className,
+  children,
+}: {
+  className: string;
+  children: ReactNode;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isNearViewport, setIsNearViewport] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    if (!("IntersectionObserver" in window)) {
+      queueMicrotask(() => setIsNearViewport(true));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "1200px 0px" }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className={className} aria-hidden="true">
+      {isNearViewport ? children : null}
+    </div>
+  );
+}
 
 
 export function Footer() {
@@ -207,7 +250,7 @@ export function Footer() {
       </div>
 
       {/* Moving Aurora Wave Gradient at the end of the footer */}
-      <div className="footer-aurora-wrapper" aria-hidden="true">
+      <DeferredVisual className="footer-aurora-wrapper">
         <Aurora
           colorStops={["#FF4A32", "#FFA090", "#f26950"]}
           blend={0.5}
@@ -215,7 +258,7 @@ export function Footer() {
           speed={0.5}
           direction="bottom"
         />
-      </div>
+      </DeferredVisual>
     </footer>
   );
 }
@@ -229,7 +272,7 @@ export function ContactCTA({
 }) {
   return (
     <section className="cta-section" data-nav-theme="light">
-      <div className="cta-orb-corner" aria-hidden="true">
+      <DeferredVisual className="cta-orb-corner">
         <Orb
           hoverIntensity={0.5}
           rotateOnHover={true}
@@ -237,7 +280,7 @@ export function ContactCTA({
           forceHoverState={false}
           whiteOnly={true}
         />
-      </div>
+      </DeferredVisual>
       <div className="container cta-inner">
         <div>
           <span className="eyebrow">Let&apos;s talk</span>
