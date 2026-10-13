@@ -112,7 +112,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{localStorage.removeItem("pivilis-theme");document.documentElement.dataset.theme="light";document.documentElement.classList.add("pv-lock");}catch(e){}`,
+            __html: `try{localStorage.removeItem("pivilis-theme");}catch(e){}document.documentElement.dataset.theme="light";try{if(sessionStorage.getItem("pivilis-preloader-seen")==="1"){document.documentElement.classList.add("pv-preloader-seen");}else{document.documentElement.classList.add("pv-lock");}}catch(e){document.documentElement.classList.add("pv-lock");}`,
           }}
         />
         <script

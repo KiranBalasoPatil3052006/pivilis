@@ -24,6 +24,10 @@ html.pv-lock body {
   pointer-events: auto;
 }
 
+html.pv-preloader-seen #pv-preloader {
+  display: none;
+}
+
 #pv-preloader.pv-out {
   opacity: 0;
   visibility: hidden;

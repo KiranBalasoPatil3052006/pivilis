@@ -6,6 +6,7 @@ import "./preloader.css";
 
 const HOLD_AT = 5.0;
 const END_AT = 6.0;
+const SESSION_KEY = "pivilis-preloader-seen";
 
 /* dot keyframes: [time, centreX, centreY, width, height] in units of logo width */
 const KEYS: [number, number, number, number, number][] = [
@@ -69,6 +70,20 @@ export function PivilisPreloader() {
     const dot = dotRef.current;
 
     if (!pre || !stage || !logo || !acc || !dot) return;
+
+    let hasPlayed = document.documentElement.classList.contains(
+      "pv-preloader-seen",
+    );
+    try {
+      hasPlayed ||= sessionStorage.getItem(SESSION_KEY) === "1";
+    } catch {}
+
+    if (hasPlayed) {
+      pre.style.display = "none";
+      document.documentElement.classList.add("pv-preloader-seen");
+      document.documentElement.classList.remove("pv-lock");
+      return;
+    }
 
     let keys = KEYS;
     let W = logo.offsetWidth || 300;
@@ -156,13 +171,19 @@ export function PivilisPreloader() {
     let raf: number;
     let last: number;
     let t = 0;
+    let exitTimer: ReturnType<typeof setTimeout> | undefined;
+    let reducedMotionTimer: ReturnType<typeof setTimeout> | undefined;
 
     function finish() {
       if (!pre) return;
       pre.classList.add("pv-out");
       document.documentElement.classList.remove("pv-lock");
-      setTimeout(() => {
+      exitTimer = setTimeout(() => {
         pre.style.display = "none";
+        document.documentElement.classList.add("pv-preloader-seen");
+        try {
+          sessionStorage.setItem(SESSION_KEY, "1");
+        } catch {}
         document.dispatchEvent(new CustomEvent("pivilis:preloader-done"));
       }, 650);
     }
@@ -199,7 +220,7 @@ export function PivilisPreloader() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
       render(4.9);
-      setTimeout(finish, 800);
+      reducedMotionTimer = setTimeout(finish, 800);
     } else {
       play();
     }
@@ -223,6 +244,8 @@ export function PivilisPreloader() {
     return () => {
       cancelAnimationFrame(raf);
       clearTimeout(safetyTimer);
+      clearTimeout(exitTimer);
+      clearTimeout(reducedMotionTimer);
       window.removeEventListener("resize", measure);
       window.removeEventListener("load", onLoad);
       if (img) img.removeEventListener("load", measure);
