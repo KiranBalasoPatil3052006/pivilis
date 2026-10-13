@@ -86,7 +86,7 @@ export function Footer() {
 
           {/* Column 2: Navigation */}
           <div className="footer-col footer-col-links">
-            <h4 className="footer-heading">Navigation</h4>
+            <h2 className="footer-heading">Navigation</h2>
             <ul className="footer-nav-list">
               <li>
                 <Link href="/">
@@ -117,7 +117,7 @@ export function Footer() {
 
           {/* Column 3: Service Areas */}
           <div className="footer-col footer-col-services">
-            <h4 className="footer-heading">Service Areas</h4>
+            <h2 className="footer-heading">Service Areas</h2>
             <ul className="footer-nav-list">
               <li>
                 <Link href="/services/ai-automation">
@@ -160,7 +160,7 @@ export function Footer() {
 
           {/* Column 4: Direct Action & Connect */}
           <div className="footer-col footer-col-action">
-            <h4 className="footer-heading">Start a Project</h4>
+            <h2 className="footer-heading">Start a Project</h2>
             <p className="footer-action-text">
               Have an upcoming build, content idea, or automation need? Let&apos;s talk through your goals.
             </p>

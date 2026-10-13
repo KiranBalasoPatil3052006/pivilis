@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import "./preloader.css";
 
 const HOLD_AT = 5.0;
@@ -238,13 +239,14 @@ export function PivilisPreloader() {
     >
       <div className="pv-stage" ref={stageRef}>
         <div className="pv-logo" ref={logoRef}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/images/preloader/logo.webp"
             alt="Pivilis"
             width={1498}
             height={444}
+            sizes="(max-width: 480px) 76vw, (max-aspect-ratio: 1/1) 72vw, 42vw"
             loading="eager"
+            fetchPriority="high"
             decoding="sync"
           />
           <div className="pv-accent" ref={accentRef} />

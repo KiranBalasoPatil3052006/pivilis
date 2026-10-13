@@ -9,8 +9,7 @@ import { toItemSlug } from "@/lib/capabilities";
 import { ContactCTA } from "@/components/site-shell";
 import { ServiceCapabilityGroups } from "@/components/service-directory-groups";
 import { SubservicesCardsGrid } from "@/components/subservices-cards-grid";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pivilis.com";
+import { SITE_URL, createPageMetadata, serializeJsonLd } from "@/lib/seo";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -23,41 +22,27 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const service = serviceBySlug(slug);
-  if (!service) return { title: "Service" };
+  if (!service) {
+    return {
+      title: "Not found",
+      robots: { index: false, follow: false },
+    };
+  }
 
   const pageUrl = `/services/${slug}`;
-  const pageTitle = `${service.title} Services — Digital Support`;
-  const fullTitle = `${service.title} Services — Digital Support`;
   const pageDesc = `${service.benefit} ${service.short}`;
 
-  return {
-    title: pageTitle,
+  return createPageMetadata({
+    title: service.title,
     description: pageDesc,
-    alternates: {
-      canonical: pageUrl,
+    path: pageUrl,
+    image: {
+      url: serviceImages[service.slug] || `/images/${service.slug}.webp`,
+      width: 1200,
+      height: 800,
+      alt: serviceVisualAlts[service.slug],
     },
-    openGraph: {
-      title: fullTitle,
-      description: pageDesc,
-      url: pageUrl,
-      siteName: "Pivilis",
-      images: [
-        {
-          url: `/images/${service.slug}.webp`,
-          width: 1200,
-          height: 630,
-          alt: `${service.title} — Pivilis`,
-        },
-      ],
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: fullTitle,
-      description: pageDesc,
-      images: [`/images/${service.slug}.webp`],
-    },
-  };
+  });
 }
 
 export default async function ServiceDetail({
@@ -74,37 +59,37 @@ export default async function ServiceDetail({
     "@graph": [
       {
         "@type": "BreadcrumbList",
-        "@id": `${siteUrl}/services/${service.slug}#breadcrumb`,
+        "@id": `${SITE_URL}/services/${service.slug}#breadcrumb`,
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: `${siteUrl}/`,
+            item: `${SITE_URL}/`,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Services",
-            item: `${siteUrl}/services`,
+            item: `${SITE_URL}/services`,
           },
           {
             "@type": "ListItem",
             position: 3,
             name: service.title,
-            item: `${siteUrl}/services/${service.slug}`,
+            item: `${SITE_URL}/services/${service.slug}`,
           },
         ],
       },
       {
         "@type": "Service",
-        "@id": `${siteUrl}/services/${service.slug}#service`,
+        "@id": `${SITE_URL}/services/${service.slug}#service`,
         name: service.title,
         description: service.intro,
-        url: `${siteUrl}/services/${service.slug}`,
+        url: `${SITE_URL}/services/${service.slug}`,
         provider: {
           "@type": "Organization",
-          "@id": `${siteUrl}/#organization`,
+          "@id": `${SITE_URL}/#organization`,
         },
         hasOfferCatalog: {
           "@type": "OfferCatalog",
@@ -127,7 +112,7 @@ export default async function ServiceDetail({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(serviceSchema),
+          __html: serializeJsonLd(serviceSchema),
         }}
       />
       <section className="detail-hero" data-nav-theme="light">

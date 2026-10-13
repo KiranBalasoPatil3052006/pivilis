@@ -6,59 +6,33 @@ import { ContactCTA } from "@/components/site-shell";
 import { SkewedCarousel } from "@/components/skewed-carousel";
 import { ParticleWave } from "@/components/particle-wave";
 import BlurText from "@/components/BlurText";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pivilis.com";
+import { SITE_URL, createPageMetadata, serializeJsonLd } from "@/lib/seo";
 
 const titleAnimationFrom = { opacity: 0, y: 18, filter: "blur(5px)" };
 const titleAnimationTo = [{ opacity: 1, y: 0, filter: "blur(0px)" }];
 
-export const metadata: Metadata = {
-  title: "About Pivilis — Clear Digital Support for Businesses",
+export const metadata: Metadata = createPageMetadata({
+  title: "About",
   description:
     "Learn why Pivilis started and how one team helps growing businesses with clear, connected digital services.",
-  alternates: {
-    canonical: "/about",
-  },
-  openGraph: {
-    title: "About Pivilis — Clear Digital Support for Businesses",
-    description:
-      "Learn why Pivilis started and how one team helps growing businesses with clear, connected digital services.",
-    url: "/about",
-    siteName: "Pivilis",
-    images: [
-      {
-        url: "/images/about-hero.webp",
-        width: 1200,
-        height: 630,
-        alt: "About Pivilis — Practical Digital Support",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Pivilis — Clear Digital Support for Businesses",
-    description:
-      "Learn why Pivilis started and how one team helps growing businesses with clear, connected digital services.",
-    images: ["/images/about-hero.webp"],
-  },
-};
+  path: "/about",
+});
 
 const aboutPageSchema = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  "@id": `${siteUrl}/about#webpage`,
-  url: `${siteUrl}/about`,
+  "@id": `${SITE_URL}/about#webpage`,
+  url: `${SITE_URL}/about`,
   name: "About Pivilis",
   description:
     "Pivilis helps growing businesses manage content, marketing, websites, software, design and automation with one clear, practical team.",
   isPartOf: {
     "@type": "WebSite",
-    "@id": `${siteUrl}/#website`,
+    "@id": `${SITE_URL}/#website`,
   },
   about: {
     "@type": "Organization",
-    "@id": `${siteUrl}/#organization`,
+    "@id": `${SITE_URL}/#organization`,
   },
 };
 
@@ -68,7 +42,7 @@ export default function About() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(aboutPageSchema),
+          __html: serializeJsonLd(aboutPageSchema),
         }}
       />
       <section className="about-hero" data-nav-theme="light">

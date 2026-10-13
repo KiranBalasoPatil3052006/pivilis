@@ -5,3 +5,6 @@
 *.jpeg binary
 *.webp binary
 *.gif binary
+
+# Search-result and manifest icons must deploy as ordinary Git objects.
+public/icons/*.png -filter -diff -merge binary

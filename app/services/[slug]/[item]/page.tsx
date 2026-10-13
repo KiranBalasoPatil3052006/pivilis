@@ -14,12 +14,11 @@ import {
 import { getSubserviceCard } from "@/lib/subservices-cards";
 import { ContactCTA } from "@/components/site-shell";
 import { SubserviceComparisonSection } from "@/components/subservice-comparison-section";
+import { SITE_URL, createPageMetadata, serializeJsonLd } from "@/lib/seo";
 
 export function generateStaticParams() {
   return getAllCapabilityParams();
 }
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pivilis.com";
 
 export async function generateMetadata({
   params
@@ -29,7 +28,10 @@ export async function generateMetadata({
   const { slug, item } = await params;
   const detail = getCapabilityDetails(slug, item);
   if (!detail) {
-    return { title: "Service Capability" };
+    return {
+      title: "Not found",
+      robots: { index: false, follow: false },
+    };
   }
 
   const subserviceCard = getSubserviceCard(detail.serviceSlug, detail.slug);
@@ -38,38 +40,19 @@ export async function generateMetadata({
     `/images/service-details/${detail.serviceSlug}-removebg-preview.webp`;
 
   const pageUrl = `/services/${slug}/${item}`;
-  const pageTitle = `${detail.name} — ${detail.serviceTitle}`;
-  const fullTitle = `${detail.name} — ${detail.serviceTitle}`;
-  const pageDesc = `${detail.tagline} ${detail.simpleSummary}`;
+  const pageDesc = `${detail.tagline} A ${detail.serviceTitle} capability from Pivilis.`;
 
-  return {
-    title: pageTitle,
+  return createPageMetadata({
+    title: detail.name,
     description: pageDesc,
-    alternates: {
-      canonical: pageUrl,
+    path: pageUrl,
+    image: {
+      url: subserviceImage,
+      width: 1254,
+      height: 1254,
+      alt: `${detail.name} — ${detail.serviceTitle}`,
     },
-    openGraph: {
-      title: fullTitle,
-      description: pageDesc,
-      url: pageUrl,
-      siteName: "Pivilis",
-      images: [
-        {
-          url: subserviceImage,
-          width: 1200,
-          height: 630,
-          alt: `${detail.name} — ${detail.serviceTitle}`,
-        },
-      ],
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: fullTitle,
-      description: pageDesc,
-      images: [subserviceImage],
-    },
-  };
+  });
 }
 
 export default async function CapabilityPage({
@@ -96,44 +79,44 @@ export default async function CapabilityPage({
     "@graph": [
       {
         "@type": "BreadcrumbList",
-        "@id": `${siteUrl}/services/${detail.serviceSlug}/${detail.slug}#breadcrumb`,
+        "@id": `${SITE_URL}/services/${detail.serviceSlug}/${detail.slug}#breadcrumb`,
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: `${siteUrl}/`,
+            item: `${SITE_URL}/`,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Services",
-            item: `${siteUrl}/services`,
+            item: `${SITE_URL}/services`,
           },
           {
             "@type": "ListItem",
             position: 3,
             name: detail.serviceTitle,
-            item: `${siteUrl}/services/${detail.serviceSlug}`,
+            item: `${SITE_URL}/services/${detail.serviceSlug}`,
           },
           {
             "@type": "ListItem",
             position: 4,
             name: detail.name,
-            item: `${siteUrl}/services/${detail.serviceSlug}/${detail.slug}`,
+            item: `${SITE_URL}/services/${detail.serviceSlug}/${detail.slug}`,
           },
         ],
       },
       {
         "@type": "Service",
-        "@id": `${siteUrl}/services/${detail.serviceSlug}/${detail.slug}#service`,
+        "@id": `${SITE_URL}/services/${detail.serviceSlug}/${detail.slug}#service`,
         name: detail.name,
         description: detail.simpleSummary,
-        url: `${siteUrl}/services/${detail.serviceSlug}/${detail.slug}`,
+        url: `${SITE_URL}/services/${detail.serviceSlug}/${detail.slug}`,
         serviceType: detail.serviceTitle,
         provider: {
           "@type": "Organization",
-          "@id": `${siteUrl}/#organization`,
+          "@id": `${SITE_URL}/#organization`,
         },
       },
     ],
@@ -144,7 +127,7 @@ export default async function CapabilityPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(capabilitySchema),
+          __html: serializeJsonLd(capabilitySchema),
         }}
       />
       {/* Hero Section */}

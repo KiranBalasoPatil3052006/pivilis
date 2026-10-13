@@ -2,59 +2,70 @@ import type { Metadata } from "next";
 import { MotionAccents } from "@/components/motion-accents";
 import { Header, Footer } from "@/components/site-shell";
 import { PivilisPreloader } from "@/components/pivilis-preloader";
+import {
+  BRAND_DESCRIPTION,
+  BRAND_TITLE,
+  DEFAULT_SOCIAL_IMAGE,
+  SITE_NAME,
+  SITE_URL,
+  serializeJsonLd,
+} from "@/lib/seo";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pivilis.com";
+const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
+const bingVerification = process.env.BING_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Pivilis — Digital Services for Growing Businesses",
+    default: BRAND_TITLE,
     template: "%s | Pivilis",
   },
-  description:
-    "Practical support for content, marketing, automation, websites, software and design. One partner for the digital side of your business.",
-  alternates: {
-    canonical: "/",
-  },
+  description: BRAND_DESCRIPTION,
+  applicationName: SITE_NAME,
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
-    siteName: "Pivilis",
-    title: "Pivilis — Digital Services for Growing Businesses",
-    description:
-      "Practical support for content, marketing, automation, websites, software and design. One partner for the digital side of your business.",
-    images: [
-      {
-        url: "/images/hero-about.webp",
-        width: 1200,
-        height: 630,
-        alt: "Pivilis — Digital services for growing businesses",
-      },
-    ],
+    url: "/",
+    siteName: SITE_NAME,
+    title: BRAND_TITLE,
+    description: BRAND_DESCRIPTION,
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pivilis — Digital Services for Growing Businesses",
-    description:
-      "Practical support for content, marketing, automation, websites, software and design.",
-    images: ["/images/hero-about.webp"],
+    title: BRAND_TITLE,
+    description: BRAND_DESCRIPTION,
+    images: [DEFAULT_SOCIAL_IMAGE.url],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      {
+        url: "/icons/pivilis-48.png",
+        type: "image/png",
+        sizes: "48x48",
+      },
+      {
+        url: "/icons/pivilis-192.png",
+        type: "image/png",
+        sizes: "192x192",
+      },
+    ],
+    shortcut: "/icons/pivilis-48.png",
+    apple: {
+      url: "/icons/pivilis-180.png",
+      type: "image/png",
+      sizes: "180x180",
     },
   },
-  icons: {
-    icon: "/images/pivilis-icon.webp",
-    apple: "/images/pivilis-icon.webp",
+  verification: {
+    ...(googleVerification ? { google: googleVerification } : {}),
+    ...(bingVerification
+      ? { other: { "msvalidate.01": bingVerification } }
+      : {}),
   },
 };
 
@@ -63,28 +74,30 @@ const orgWebsiteSchema = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": `${siteUrl}/#organization`,
-      name: "Pivilis",
-      url: siteUrl,
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: `${SITE_URL}/`,
       logo: {
         "@type": "ImageObject",
-        "@id": `${siteUrl}/#logo`,
-        url: `${siteUrl}/images/pivilis-icon.webp`,
-        caption: "Pivilis",
+        "@id": `${SITE_URL}/#logo`,
+        url: `${SITE_URL}/images/pivilis-icon.webp`,
+        width: 1304,
+        height: 1206,
+        caption: SITE_NAME,
       },
       email: "Pivilisofficial@gmail.com",
-      description:
-        "Practical support for content, marketing, automation, websites, software and design. One partner for the digital side of your business.",
+      description: BRAND_DESCRIPTION,
     },
     {
       "@type": "WebSite",
-      "@id": `${siteUrl}/#website`,
-      url: siteUrl,
-      name: "Pivilis",
+      "@id": `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: SITE_NAME,
+      inLanguage: "en",
       publisher: {
-        "@id": `${siteUrl}/#organization`,
+        "@id": `${SITE_URL}/#organization`,
       },
-      description: "Digital services for growing businesses.",
+      description: BRAND_DESCRIPTION,
     },
   ],
 };
@@ -97,12 +110,6 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light" suppressHydrationWarning>
       <head>
-        <link
-          rel="preload"
-          as="image"
-          href="/images/preloader/logo.webp"
-          fetchPriority="high"
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `try{localStorage.removeItem("pivilis-theme");document.documentElement.dataset.theme="light";document.documentElement.classList.add("pv-lock");}catch(e){}`,
@@ -111,7 +118,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(orgWebsiteSchema),
+            __html: serializeJsonLd(orgWebsiteSchema),
           }}
         />
       </head>

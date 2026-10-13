@@ -6,38 +6,19 @@ import { HeroQAAnimation } from "@/components/hero-qa-animation";
 import { ParticleWave } from "@/components/particle-wave";
 import { ServiceAccordion } from "@/components/service-accordion";
 import { ContactCTA } from "@/components/site-shell";
+import {
+  BRAND_DESCRIPTION,
+  BRAND_TITLE,
+  createPageMetadata,
+  serializeJsonLd,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Digital Services for Growing Businesses",
-  description:
-    "Practical digital support for growing businesses. We design, build, and manage content, advertising, automation, websites, and custom software.",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: "Pivilis — Digital Services for Growing Businesses",
-    description:
-      "Practical digital support for growing businesses. We design, build, and manage content, advertising, automation, websites, and custom software.",
-    url: "/",
-    siteName: "Pivilis",
-    images: [
-      {
-        url: "/images/hero-about.webp",
-        width: 1200,
-        height: 630,
-        alt: "Pivilis — Digital services for growing businesses",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Pivilis — Digital Services for Growing Businesses",
-    description:
-      "Practical digital support for growing businesses. We design, build, and manage content, advertising, automation, websites, and custom software.",
-    images: ["/images/hero-about.webp"],
-  },
-};
+export const metadata: Metadata = createPageMetadata({
+  title: BRAND_TITLE,
+  description: BRAND_DESCRIPTION,
+  path: "/",
+  absoluteTitle: true,
+});
 
 const homeFaqSchema = {
   "@context": "https://schema.org",
@@ -76,18 +57,19 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(homeFaqSchema),
+          __html: serializeJsonLd(homeFaqSchema),
         }}
       />
       <section className="hero" data-nav-theme="light">
         <Image
           className="hero-background"
           src="/images/hero-about.webp"
-          alt="Pivilis fluid warm curves visual"
+          alt=""
           width={1916}
           height={821}
           sizes="100vw"
-          preload
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="container hero-inner">
           <div className="hero-copy">

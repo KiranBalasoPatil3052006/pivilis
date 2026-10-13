@@ -9,52 +9,26 @@ import {ScannerBackground} from "@/components/scanner-background";
 import {ServicesRotatingBanner} from "@/components/services-rotating-banner";
 import BlurText from "@/components/BlurText";
 import {ServiceDirectoryGroups} from "@/components/service-directory-groups";
+import {SITE_URL, createPageMetadata, serializeJsonLd} from "@/lib/seo";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pivilis.com";
-
-export const metadata: Metadata = {
-  title: "Services Directory — Seven Digital Disciplines",
+export const metadata: Metadata = createPageMetadata({
+  title: "Services",
   description:
     "Explore all seven Pivilis service areas: AI & automation, social media, video editing, marketing & ads, websites, custom software, and product design.",
-  alternates: {
-    canonical: "/services",
-  },
-  openGraph: {
-    title: "Services Directory — Seven Digital Disciplines",
-    description:
-      "Explore all seven Pivilis service areas: AI & automation, social media, video editing, marketing & ads, websites, custom software, and product design.",
-    url: "/services",
-    siteName: "Pivilis",
-    images: [
-      {
-        url: "/images/hero-about.webp",
-        width: 1200,
-        height: 630,
-        alt: "Pivilis Services Directory",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Services Directory — Seven Digital Disciplines",
-    description:
-      "Explore all seven Pivilis service areas: AI & automation, social media, video editing, marketing & ads, websites, custom software, and product design.",
-    images: ["/images/hero-about.webp"],
-  },
-};
+  path: "/services",
+});
 
 const servicesDirectorySchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "@id": `${siteUrl}/services#webpage`,
-  url: `${siteUrl}/services`,
+  "@id": `${SITE_URL}/services#webpage`,
+  url: `${SITE_URL}/services`,
   name: "Services Directory — Seven Digital Disciplines",
   description:
     "Explore all seven Pivilis service areas, from social media and advertising to automation, websites, custom software and design.",
   isPartOf: {
     "@type": "WebSite",
-    "@id": `${siteUrl}/#website`,
+    "@id": `${SITE_URL}/#website`,
   },
   mainEntity: {
     "@type": "ItemList",
@@ -63,7 +37,7 @@ const servicesDirectorySchema = {
       "@type": "ListItem",
       position: index + 1,
       name: service.title,
-      url: `${siteUrl}/services/${service.slug}`,
+      url: `${SITE_URL}/services/${service.slug}`,
       description: service.short,
     })),
   },
@@ -74,7 +48,7 @@ export default function Services() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(servicesDirectorySchema),
+        __html: serializeJsonLd(servicesDirectorySchema),
       }}
     />
     <section className="directory-hero" data-nav-theme="dark">

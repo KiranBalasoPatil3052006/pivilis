@@ -1,54 +1,28 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
+import { SITE_URL, createPageMetadata, serializeJsonLd } from "@/lib/seo";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://pivilis.com";
-
-export const metadata: Metadata = {
-  title: "Contact — Start a Project or Conversation",
+export const metadata: Metadata = createPageMetadata({
+  title: "Contact",
   description:
     "Tell us about your business and goals. We help you plan the right digital solutions across marketing, automation, websites, and software.",
-  alternates: {
-    canonical: "/contact",
-  },
-  openGraph: {
-    title: "Contact — Start a Project or Conversation",
-    description:
-      "Tell us about your business and goals. We help you plan the right digital solutions across marketing, automation, websites, and software.",
-    url: "/contact",
-    siteName: "Pivilis",
-    images: [
-      {
-        url: "/images/hero-about.webp",
-        width: 1200,
-        height: 630,
-        alt: "Contact Pivilis",
-      },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact — Start a Project or Conversation",
-    description:
-      "Tell us about your business and goals. We help you plan the right digital solutions across marketing, automation, websites, and software.",
-    images: ["/images/hero-about.webp"],
-  },
-};
+  path: "/contact",
+});
 
 const contactPageSchema = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  "@id": `${siteUrl}/contact#webpage`,
-  url: `${siteUrl}/contact`,
+  "@id": `${SITE_URL}/contact#webpage`,
+  url: `${SITE_URL}/contact`,
   name: "Contact Pivilis",
   description: "Tell Pivilis about your business and what you need help with.",
   isPartOf: {
     "@type": "WebSite",
-    "@id": `${siteUrl}/#website`,
+    "@id": `${SITE_URL}/#website`,
   },
   mainEntity: {
     "@type": "Organization",
-    "@id": `${siteUrl}/#organization`,
+    "@id": `${SITE_URL}/#organization`,
     contactPoint: {
       "@type": "ContactPoint",
       email: "Pivilisofficial@gmail.com",
@@ -63,7 +37,7 @@ export default function Contact() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(contactPageSchema),
+          __html: serializeJsonLd(contactPageSchema),
         }}
       />
       <section className="page-intro" data-nav-theme="light">
